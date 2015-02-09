@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="8906c0f0-59c4-45de-babb-f9e008d99276" solutionId="8906c0f0-59c4-45de-babb-f9e008d99276" resetWebServer="false" sharePointProductVersion="15.0" name="ExerciseTemplateBusinessRules" xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel">
+  <features>
+    <featureReference itemId="9c595641-df98-4131-88c5-1e20c6598e6d" />
+  </features>
+</package>

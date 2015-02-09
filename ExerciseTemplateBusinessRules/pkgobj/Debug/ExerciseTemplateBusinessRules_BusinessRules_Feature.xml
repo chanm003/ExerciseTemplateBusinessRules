@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature xmlns="http://schemas.microsoft.com/sharepoint/" Id="78f9d1ba-466c-41c8-8899-511bcddc8105" ReceiverAssembly="Microsoft.SharePoint.WorkflowServices, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" ReceiverClass="Microsoft.SharePoint.WorkflowServices.SPWorkflowPackageFeatureReceiver" Scope="Web" Title="Exercise Template - Business Rules">
+  <ElementManifests>
+    <ElementManifest Location="WorkflowHistoryList\Elements.xml" />
+    <ElementManifest Location="WorkflowTaskList\Elements.xml" />
+    <ElementManifest Location="Email when RFI Created\Elements.xml" />
+    <ElementFile Location="Email when RFI Created\Workflow.xaml" />
+    <ElementFile Location="Email when RFI Created\WorkflowStartAssociation" />
+  </ElementManifests>
+</Feature>
