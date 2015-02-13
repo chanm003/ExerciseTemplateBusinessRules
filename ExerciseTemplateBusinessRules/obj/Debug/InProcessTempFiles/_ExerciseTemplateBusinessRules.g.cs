@@ -75,6 +75,8 @@ namespace XamlStaticHelperNamespace {
                         "blicKeyToken=b03f5f7f11d50a3a"));
             assemblyList.Add(Load("Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce11" +
                         "1e9429c"));
+            assemblyList.Add(Load("Microsoft.SharePoint.WorkflowServicesBase, Version=15.0.0.0, Culture=neutral, Pub" +
+                        "licKeyToken=71e9bce111e9429c"));
             assemblyList.Add(System.Reflection.Assembly.GetExecutingAssembly());
             return assemblyList;
         }

@@ -1,19 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ewe:Workflow xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:ewe="clr-namespace:ExerciseTemplateBusinessRules.Workflows.Email_when_RFI_Created;assembly=ExerciseTemplateBusinessRules" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities" xmlns:msdad="clr-namespace:Microsoft.SharePoint.DesignTime.Activities.Design;assembly=Microsoft.SharePoint.DesignTime.Activities.Design" xmlns:p="http://schemas.microsoft.com/workflow/2012/07/xaml/activities" xmlns:p1="wf://workflow.windows.net/$Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<ews:Workflow xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:ews="clr-namespace:ExerciseTemplateBusinessRules.Workflows.SendEmail;assembly=ExerciseTemplateBusinessRules" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities" xmlns:msdad="clr-namespace:Microsoft.SharePoint.DesignTime.Activities.Design;assembly=Microsoft.SharePoint.DesignTime.Activities.Design" xmlns:p="wf://workflow.windows.net/$Activities" xmlns:p1="http://schemas.microsoft.com/workflow/2012/07/xaml/activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
       <x:String>System</x:String>
       <x:String>System.Collections.Generic</x:String>
       <x:String>System.Data</x:String>
       <x:String>System.Text</x:String>
-      <x:String>Microsoft.Activities</x:String>
-      <x:String>System.Collections.ObjectModel</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
     <sco:Collection x:TypeArguments="AssemblyReference">
       <AssemblyReference>Microsoft.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.SharePoint.DesignTime.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.SharePoint.WorkflowServicesBase</AssemblyReference>
       <AssemblyReference>PresentationFramework</AssemblyReference>
       <AssemblyReference>System</AssemblyReference>
       <AssemblyReference>System.Activities</AssemblyReference>
@@ -31,128 +30,84 @@
       <AssemblyReference>ExerciseTemplateBusinessRules</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <ewe:Workflow.Implementation>
-    <Sequence>
+  <ews:Workflow.Implementation>
+    <Sequence DisplayName="Root">
       <Sequence.Variables>
-        <Variable x:TypeArguments="p:DynamicValue" Name="props" />
-        <Variable x:TypeArguments="x:String" Name="POCEmail" />
-        <Variable x:TypeArguments="sco:Collection(x:String)" Name="recipients" />
-        <Variable x:TypeArguments="x:String" Name="Id" />
+        <Variable x:TypeArguments="p1:DynamicValue" Name="props" />
         <Variable x:TypeArguments="x:String" Name="Title" />
-        <Variable x:TypeArguments="x:String" Name="Priority" />
-        <Variable x:TypeArguments="x:String" Name="RecommendedOPR" />
-        <Variable x:TypeArguments="x:String" Name="Details" />
-        <Variable x:TypeArguments="x:String" Name="currentItemURL" />
-        <Variable x:TypeArguments="x:String" Name="currentSiteURL" />
+        <Variable x:TypeArguments="x:String" Name="MessageBody" />
+        <Variable x:TypeArguments="sco:Collection(x:String)" Name="Recipients" />
+        <Variable x:TypeArguments="sco:Collection(x:String)" Name="CC" />
       </Sequence.Variables>
-      <p1:LookupWorkflowContextProperty PropertyName="CurrentWebUrl">
-        <p1:LookupWorkflowContextProperty.Result>
-          <OutArgument x:TypeArguments="x:String">
-            <mca:CSharpReference x:TypeArguments="x:String">currentSiteURL</mca:CSharpReference>
-          </OutArgument>
-        </p1:LookupWorkflowContextProperty.Result>
-      </p1:LookupWorkflowContextProperty>
-      <p1:LookupSPListItem ItemGuid="{x:Null}" Properties="{x:Null}">
-        <p1:LookupSPListItem.ItemId>
-          <InArgument x:TypeArguments="x:Int32">
-            <p:ExpressionContainerValue x:TypeArguments="x:Int32">
-              <p1:GetCurrentItemId />
-            </p:ExpressionContainerValue>
-          </InArgument>
-        </p1:LookupSPListItem.ItemId>
-        <p1:LookupSPListItem.ListId>
-          <InArgument x:TypeArguments="s:Guid">
-            <p:ExpressionContainerValue x:TypeArguments="s:Guid">
-              <p1:GetCurrentListId />
-            </p:ExpressionContainerValue>
-          </InArgument>
-        </p1:LookupSPListItem.ListId>
-        <p1:LookupSPListItem.Result>
-          <OutArgument x:TypeArguments="p:DynamicValue">
-            <mca:CSharpReference x:TypeArguments="p:DynamicValue">props</mca:CSharpReference>
-          </OutArgument>
-        </p1:LookupSPListItem.Result>
-      </p1:LookupSPListItem>
-      <p:GetODataProperties DisplayName="GetDynamicValueProperties">
-        <p:GetODataProperties.Source>
-          <InArgument x:TypeArguments="p:DynamicValue">
-            <mca:CSharpValue x:TypeArguments="p:DynamicValue">props</mca:CSharpValue>
-          </InArgument>
-        </p:GetODataProperties.Source>
-        <scg:Dictionary x:TypeArguments="x:String, OutArgument">
-          <OutArgument x:TypeArguments="x:String" x:Key="POCEmail">
-            <mca:CSharpReference x:TypeArguments="x:String">POCEmail</mca:CSharpReference>
-          </OutArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="Id">
-            <mca:CSharpReference x:TypeArguments="x:String">Id</mca:CSharpReference>
-          </OutArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="Title">
-            <mca:CSharpReference x:TypeArguments="x:String">Title</mca:CSharpReference>
-          </OutArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="Priority">
-            <mca:CSharpReference x:TypeArguments="x:String">Priority</mca:CSharpReference>
-          </OutArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="RecommendedOPR">
-            <mca:CSharpReference x:TypeArguments="x:String">RecommendedOPR</mca:CSharpReference>
-          </OutArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="Details">
-            <mca:CSharpReference x:TypeArguments="x:String">Details</mca:CSharpReference>
-          </OutArgument>
-        </scg:Dictionary>
-      </p:GetODataProperties>
-      <WriteLine Text="Testing..." />
-      <p:BuildCollection x:TypeArguments="x:String">
-        <p:BuildCollection.Result>
-          <OutArgument x:TypeArguments="sco:Collection(x:String)">
-            <mca:CSharpReference x:TypeArguments="sco:Collection(x:String)">recipients</mca:CSharpReference>
-          </OutArgument>
-        </p:BuildCollection.Result>
-        <p:BuildCollection.Values>
-          <InArgument x:TypeArguments="x:String">
-            <mca:CSharpValue x:TypeArguments="x:String">POCEmail</mca:CSharpValue>
-          </InArgument>
-        </p:BuildCollection.Values>
-      </p:BuildCollection>
-      <Assign>
-        <Assign.To>
-          <OutArgument x:TypeArguments="x:String">
-            <mca:CSharpReference x:TypeArguments="x:String">currentItemURL</mca:CSharpReference>
-          </OutArgument>
-        </Assign.To>
-        <Assign.Value>
-          <InArgument x:TypeArguments="x:String">
-            <mca:CSharpValue x:TypeArguments="x:String">currentSiteURL + "/Lists/RFI/DispForm.aspx?ID=" + Id</mca:CSharpValue>
-          </InArgument>
-        </Assign.Value>
-      </Assign>
-      <p1:Email AdditionalHeaders="{x:Null}" BCC="{x:Null}" CC="{x:Null}">
-        <p1:Email.Body>
-          <InArgument x:TypeArguments="x:String">
-            <mca:CSharpValue x:TypeArguments="x:String" xml:space="preserve">"&lt;b&gt;Title:&lt;/b&gt; " + Title +
-
-"&lt;br/&gt;&lt;b&gt;ID:&lt;/b&gt; " + Id +
-
-"&lt;br/&gt;&lt;b&gt;Priority:&lt;/b&gt; " + Priority +
-
-"&lt;br/&gt;&lt;b&gt;Recommended OPR:&lt;/b&gt; " + RecommendedOPR +
-
-"&lt;br/&gt;&lt;b&gt;Details:&lt;/b&gt; " + Details +
-
-"&lt;br/&gt;&lt;br/&gt;&lt;a href='" + currentItemURL + "'&gt;View RFI&lt;/a&gt;"</mca:CSharpValue>
-          </InArgument>
-        </p1:Email.Body>
-        <p1:Email.Subject>
-          <InArgument x:TypeArguments="x:String">
-            <mca:CSharpValue x:TypeArguments="x:String">"Your RFI: " + Title</mca:CSharpValue>
-          </InArgument>
-        </p1:Email.Subject>
-        <p1:Email.To>
-          <InArgument x:TypeArguments="sco:Collection(x:String)">
-            <mca:CSharpValue x:TypeArguments="sco:Collection(x:String)">recipients</mca:CSharpValue>
-          </InArgument>
-        </p1:Email.To>
-      </p1:Email>
-      <sads:DebugSymbol.Symbol>9xBFxFNZB8ZVCDceTaXhO726dGM6XFNQMjAxM1xFeGVyY2lzZVRlbXBsYXRlQnVzaW5lc3NSdWxlc1xFeGVyY2lzZVRlbXBsYXRlQnVzaW5lc3NSdWxlc1xXb3JrZmxvd3NcRW1haWwgd2hlbiBSRkkgQ3JlYXRlZFxXb3JrZmxvdy54YW1sHi4DpwEOAgEBOwVBKAMBsAFCBVYbAwGiAVcFcRwCAVRyBXJSAgFScwV+GQIBO38FigEOAgEkiwEFpQEQAgECPgs+XwMBsgE7djuFAQMBsQFMC04oAwGvAVMLU1wDAaQBRQtHKAMBowFiC2JTAwGXAWgLaFkDAYwBbgtuWAMBgQFrC2tfAgF2WgtaVAIBa2ULZVYCAWBfC19ZAgFVckNyTwIBU3sLe1ECAUd2C3ZrAgE8hwELhwF9AgEwggELggFfAgElogELogFjAgEZjgELmAFkAgEOnQELnQFdAgEDTQ1NJAQBrwEBRg1GJAQBowEB</sads:DebugSymbol.Symbol>
+      <Sequence DisplayName="Get Properties of Item">
+        <p:LookupSPListItem ItemGuid="{x:Null}" Properties="{x:Null}">
+          <p:LookupSPListItem.ItemId>
+            <InArgument x:TypeArguments="x:Int32">
+              <p1:ExpressionContainerValue x:TypeArguments="x:Int32">
+                <p:GetCurrentItemId />
+              </p1:ExpressionContainerValue>
+            </InArgument>
+          </p:LookupSPListItem.ItemId>
+          <p:LookupSPListItem.ListId>
+            <InArgument x:TypeArguments="s:Guid">
+              <p1:ExpressionContainerValue x:TypeArguments="s:Guid">
+                <p:GetCurrentListId />
+              </p1:ExpressionContainerValue>
+            </InArgument>
+          </p:LookupSPListItem.ListId>
+          <p:LookupSPListItem.Result>
+            <OutArgument x:TypeArguments="p1:DynamicValue">
+              <mca:CSharpReference x:TypeArguments="p1:DynamicValue">props</mca:CSharpReference>
+            </OutArgument>
+          </p:LookupSPListItem.Result>
+        </p:LookupSPListItem>
+        <p1:GetODataProperties DisplayName="GetDynamicValueProperties">
+          <p1:GetODataProperties.Source>
+            <InArgument x:TypeArguments="p1:DynamicValue">
+              <mca:CSharpValue x:TypeArguments="p1:DynamicValue">props</mca:CSharpValue>
+            </InArgument>
+          </p1:GetODataProperties.Source>
+          <scg:Dictionary x:TypeArguments="x:String, OutArgument">
+            <OutArgument x:TypeArguments="x:String" x:Key="Title">
+              <mca:CSharpReference x:TypeArguments="x:String">Title</mca:CSharpReference>
+            </OutArgument>
+            <OutArgument x:TypeArguments="x:String" x:Key="MessageBody">
+              <mca:CSharpReference x:TypeArguments="x:String">MessageBody</mca:CSharpReference>
+            </OutArgument>
+            <OutArgument x:TypeArguments="sco:Collection(x:String)" x:Key="ToId/results">
+              <mca:CSharpReference x:TypeArguments="sco:Collection(x:String)">Recipients</mca:CSharpReference>
+            </OutArgument>
+            <OutArgument x:TypeArguments="sco:Collection(x:String)" x:Key="CCId/results">
+              <mca:CSharpReference x:TypeArguments="sco:Collection(x:String)">CC</mca:CSharpReference>
+            </OutArgument>
+          </scg:Dictionary>
+        </p1:GetODataProperties>
+      </Sequence>
+      <Sequence DisplayName="Send Email">
+        <p:Email AdditionalHeaders="{x:Null}" BCC="{x:Null}">
+          <p:Email.Body>
+            <InArgument x:TypeArguments="x:String">
+              <mca:CSharpValue x:TypeArguments="x:String">MessageBody</mca:CSharpValue>
+            </InArgument>
+          </p:Email.Body>
+          <p:Email.CC>
+            <InArgument x:TypeArguments="sco:Collection(x:String)">
+              <mca:CSharpValue x:TypeArguments="sco:Collection(x:String)">CC</mca:CSharpValue>
+            </InArgument>
+          </p:Email.CC>
+          <p:Email.Subject>
+            <InArgument x:TypeArguments="x:String">
+              <mca:CSharpValue x:TypeArguments="x:String">Title</mca:CSharpValue>
+            </InArgument>
+          </p:Email.Subject>
+          <p:Email.To>
+            <InArgument x:TypeArguments="sco:Collection(x:String)">
+              <mca:CSharpValue x:TypeArguments="sco:Collection(x:String)">Recipients</mca:CSharpValue>
+            </InArgument>
+          </p:Email.To>
+        </p:Email>
+      </Sequence>
+      <sads:DebugSymbol.Symbol>9xALRpOhK86Bp0kMsFX2KKYNZ2M6XFNQMjAxM1xFeGVyY2lzZVRlbXBsYXRlQnVzaW5lc3NSdWxlc1xFeGVyY2lzZVRlbXBsYXRlQnVzaW5lc3NSdWxlc1xXb3JrZmxvd3NcU2VuZEVtYWlsXFdvcmtmbG93LnhhbWwULQN8DgIBATUFYBACARxhBXoQAgECNgdKHAIBPEsHXx8CAR1iB3gRAgEDQA1CKwIBREcNR18CAT45DTsrAgE9XA1cZQIBNlYNVl4CATBODU5XAgEqUw1TWAIBJFkNWW0CAR50DXRlAgEWag1qXQIBEGUNZVYCAQpvDW9QAgEEQQ9BJQMBRAE6DzolAwE9AQ==</sads:DebugSymbol.Symbol>
     </Sequence>
-  </ewe:Workflow.Implementation>
-</ewe:Workflow>
+  </ews:Workflow.Implementation>
+</ews:Workflow>

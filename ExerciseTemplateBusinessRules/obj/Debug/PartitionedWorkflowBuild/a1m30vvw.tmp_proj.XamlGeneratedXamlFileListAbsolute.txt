@@ -1,2 +1,0 @@
-obj\Debug\PartitionedWorkflowBuild\Workflow.g.xaml
-obj\Debug\PartitionedWorkflowBuild\ExerciseTemplateBusinessRules.Workflows.Email_when_RFI_Created_Workflow_BeforeInitializeComponentHelper.txt

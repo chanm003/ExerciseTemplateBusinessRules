@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <Receivers ListTemplateId="101">
+      <Receiver>
+        <Name>DocumentEventReceiverItemFileMoving</Name>
+        <Type>ItemFileMoving</Type>
+        <Assembly>ExerciseTemplateBusinessRules, Version=1.0.0.0, Culture=neutral, PublicKeyToken=16a367699a232d49</Assembly>
+        <Class>ExerciseTemplateBusinessRules.ItemEventReceivers.DocumentEventReceiver.DocumentEventReceiver</Class>
+        <SequenceNumber>10000</SequenceNumber>
+      </Receiver>
+  </Receivers>
+</Elements>

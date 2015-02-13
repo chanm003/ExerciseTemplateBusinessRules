@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <Receivers ListTemplateId="10015">
+      <Receiver>
+        <Name>RfiItemEventReceiverItemAdding</Name>
+        <Type>ItemAdding</Type>
+        <Assembly>ExerciseTemplateBusinessRules, Version=1.0.0.0, Culture=neutral, PublicKeyToken=16a367699a232d49</Assembly>
+        <Class>ExerciseTemplateBusinessRules.ItemEventReceivers.RfiItemEventReceiver.RfiItemEventReceiver</Class>
+        <SequenceNumber>10000</SequenceNumber>
+      </Receiver>
+      <Receiver>
+        <Name>RfiItemEventReceiverItemUpdating</Name>
+        <Type>ItemUpdating</Type>
+        <Assembly>ExerciseTemplateBusinessRules, Version=1.0.0.0, Culture=neutral, PublicKeyToken=16a367699a232d49</Assembly>
+        <Class>ExerciseTemplateBusinessRules.ItemEventReceivers.RfiItemEventReceiver.RfiItemEventReceiver</Class>
+        <SequenceNumber>10000</SequenceNumber>
+      </Receiver>
+      <Receiver>
+        <Name>RfiItemEventReceiverItemAdded</Name>
+        <Type>ItemAdded</Type>
+        <Assembly>ExerciseTemplateBusinessRules, Version=1.0.0.0, Culture=neutral, PublicKeyToken=16a367699a232d49</Assembly>
+        <Class>ExerciseTemplateBusinessRules.ItemEventReceivers.RfiItemEventReceiver.RfiItemEventReceiver</Class>
+        <SequenceNumber>10000</SequenceNumber>
+      </Receiver>
+      <Receiver>
+        <Name>RfiItemEventReceiverItemUpdated</Name>
+        <Type>ItemUpdated</Type>
+        <Assembly>ExerciseTemplateBusinessRules, Version=1.0.0.0, Culture=neutral, PublicKeyToken=16a367699a232d49</Assembly>
+        <Class>ExerciseTemplateBusinessRules.ItemEventReceivers.RfiItemEventReceiver.RfiItemEventReceiver</Class>
+        <SequenceNumber>10000</SequenceNumber>
+      </Receiver>
+  </Receivers>
+</Elements>

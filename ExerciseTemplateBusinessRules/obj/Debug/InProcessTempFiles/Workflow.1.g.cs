@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace ExerciseTemplateBusinessRules.Workflows.EmailOnRfiCreated {
+namespace ExerciseTemplateBusinessRules.Workflows.Email_when_RFI_Created {
     
     
     [System.Runtime.InteropServices.ComVisible(false)]

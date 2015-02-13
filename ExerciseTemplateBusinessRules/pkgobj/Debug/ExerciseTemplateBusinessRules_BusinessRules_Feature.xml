@@ -3,8 +3,15 @@
   <ElementManifests>
     <ElementManifest Location="WorkflowHistoryList\Elements.xml" />
     <ElementManifest Location="WorkflowTaskList\Elements.xml" />
-    <ElementManifest Location="Email when RFI Created\Elements.xml" />
-    <ElementFile Location="Email when RFI Created\Workflow.xaml" />
-    <ElementFile Location="Email when RFI Created\WorkflowStartAssociation" />
+    <ElementManifest Location="RfiItemEventReceiver\Elements.xml" />
+    <ElementManifest Location="MailMessagesInstance\Elements.xml" />
+    <ElementManifest Location="MailMessages\Elements.xml" />
+    <ElementFile Location="MailMessages\Schema.xml" />
+    <ElementManifest Location="SendEmail\Elements.xml" />
+    <ElementFile Location="SendEmail\Workflow.xaml" />
+    <ElementFile Location="SendEmail\WorkflowStartAssociation" />
+    <ElementFile Location="SendEmail\ItemAddedAssociation" />
+    <ElementManifest Location="HelpDeskTicketEventReceiver\Elements.xml" />
+    <ElementManifest Location="DocumentEventReceiver\Elements.xml" />
   </ElementManifests>
 </Feature>
